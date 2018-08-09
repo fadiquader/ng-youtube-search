@@ -1,0 +1,16 @@
+.thumbnail {
+  border-radius: 4px;
+  border: 1px solid gainsboro;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.thumbnail img {
+  max-width: 100%;
+}
+.thumbnail p {
+  word-break: break-all;
+}
+.thumbnail .caption {
+  height: 200px;
+  overflow-y: hidden;
+}

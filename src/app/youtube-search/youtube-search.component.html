@@ -1,0 +1,24 @@
+
+<div class="container">
+  <div class="page-header">
+    <h1>YouTube Search</h1>
+  </div>
+  <div class="row">
+    <div class="input-group input-group-lg col-md-12">
+      <app-search-box
+        (loading)="loading = $event"
+        (results)="updateResults($event)">
+
+      </app-search-box>
+    </div>
+  </div>
+  <div *ngIf="loading">
+    <h4>Loading...</h4>
+  </div>
+  <div *ngIf="!loading" class="row videos-list">
+    <app-video-item
+      *ngFor="let result of results" [result]="result">
+    </app-video-item>
+  </div>
+</div>
+
