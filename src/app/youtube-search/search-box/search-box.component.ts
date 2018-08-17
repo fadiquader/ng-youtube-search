@@ -23,19 +23,15 @@ export class SearchBoxComponent implements OnInit {
         debounceTime(250),
         tap(() => this.loading.emit(true)),
         map((query: string) => this.youtube.search(query)),
-        switchAll()
+        switchAll(),
+        tap(() => this.loading.emit(false)),
       ).subscribe(
       (results: SearchResult[]) => {
-        console.log('results ', results);
-        this.loading.emit(false);
         this.results.emit(results);
       },
       (err: any) => { // on error
-        console.log(err);
-        this.loading.emit(false);
       },
       () => { // on completion
-        this.loading.emit(false);
       }
     );
   }

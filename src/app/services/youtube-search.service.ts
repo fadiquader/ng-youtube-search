@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
@@ -18,15 +18,17 @@ export class YoutubeSearchService {
   }
 
   search(query: string): Observable<SearchResult[]> {
-    const params: string = [
-      `q=${query}`,
-      `key=${YOUTUBE_API_KEY}`,
-      `part=snippet`,
-      `type=video`,
-      `maxResults=10`
-    ].join('&');
-    const queryUrl = `${YOUTUBE_API_URL}?${params}`;
-    return this.http.get(queryUrl)
+    const params: HttpParams = new HttpParams()
+      .set('key', YOUTUBE_API_KEY)
+      .set('part', 'snippet')
+      .set('type', 'video')
+      .set('maxResults', '10')
+      .set('q', query);
+    const httpOptions = {
+      params
+    };
+    const queryUrl = `${YOUTUBE_API_URL}`;
+    return this.http.get(queryUrl, httpOptions)
       .pipe(
         map(response => {
           return <any>response['items']
